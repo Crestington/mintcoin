@@ -1,6 +1,6 @@
 TEMPLATE = app
-TARGET = mintcoin-qt
-VERSION = 0.7.2
+TARGET = Colossuscoin2.0-qt
+VERSION = 0.7.0
 INCLUDEPATH += src src/json src/qt
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE BOOST_THREAD_PROVIDES_GENERIC_SHARED_MUTEX_ON_WIN __NO_SYSTEM_INCLUDES
 CONFIG += no_include_pwd
@@ -276,7 +276,7 @@ SOURCES += src/qt/test/test_main.cpp \
 HEADERS += src/qt/test/uritests.h
 DEPENDPATH += src/qt/test
 QT += testlib
-TARGET = mintcoin-qt_test
+TARGET = Colossuscoin2.0-qt_test
 DEFINES += BITCOIN_QT_TEST
 }
 
@@ -357,7 +357,7 @@ macx:OBJECTIVE_SOURCES += src/qt/macdockiconhandler.mm
 macx:LIBS += -framework Foundation -framework ApplicationServices -framework AppKit
 macx:DEFINES += MAC_OSX MSG_NOSIGNAL=0
 macx:ICON = src/qt/res/icons/bitcoin.icns
-macx:TARGET = "mintcoin-qt"
+macx:TARGET = "Colossuscoin2.0-qt"
 macx:QMAKE_CFLAGS_THREAD += -pthread
 macx:QMAKE_LFLAGS_THREAD += -pthread
 macx:QMAKE_CXXFLAGS_THREAD += -pthread

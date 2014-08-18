@@ -341,7 +341,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-13"/>
-        <source>&amp;Receive coins</source>
+        <source>&amp;Receive CV2</source>
         <translation>&amp;Получение монет</translation>
     </message>
     <message>
@@ -351,7 +351,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-7"/>
-        <source>&amp;Send coins</source>
+        <source>&amp;Send CV2</source>
         <translation>Отп&amp;равка монет</translation>
     </message>
     <message>
@@ -420,7 +420,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-58"/>
-        <source>Send coins to a BottleCaps address</source>
+        <source>Send CV2 to a BottleCaps address</source>
         <translation>Отправить монеты на указанный адрес BottleCaps</translation>
     </message>
     <message>

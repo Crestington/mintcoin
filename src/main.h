@@ -30,15 +30,13 @@ static const unsigned int MAX_BLOCK_SIZE_GEN = MAX_BLOCK_SIZE/2;
 static const unsigned int MAX_BLOCK_SIGOPS = MAX_BLOCK_SIZE/50;
 static const unsigned int MAX_ORPHAN_TRANSACTIONS = MAX_BLOCK_SIZE/100;
 static const unsigned int MAX_INV_SZ = 50000;
-static const int64 MIN_TX_FEE = 10 * CENT;
-static const int64 MIN_RELAY_TX_FEE = 10 * CENT;
-static const int64 MAX_MONEY = 70000000000 * COIN;			// 70 bil
-static const int64 CIRCULATION_MONEY = MAX_MONEY;
-static const double TAX_PERCENTAGE = 0.01;
-static const int64 MAX_MINT_PROOF_OF_STAKE = 0.05 * COIN;	// 5% annual interest
-static const int CUTOFF_POW_BLOCK = 220000;
-
+static const int64 MIN_TX_FEE = 0.1 * COIN;
+static const int64 MIN_RELAY_TX_FEE = 0.1 * COIN;
+static const int64 MAX_MONEY = 150000000000 * COIN;			// 150 Billion
+static const int64 MAX_MINT_PROOF_OF_STAKE = 0.10 * COIN;	// 10% annual interest
 static const int64 MIN_TXOUT_AMOUNT = MIN_TX_FEE;
+
+static const int POW_CUTOFF_BLOCK = 20090;
 
 inline bool MoneyRange(int64 nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
 // Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp.
@@ -50,8 +48,8 @@ static const int fHaveUPnP = true;
 static const int fHaveUPnP = false;
 #endif
 
-static const uint256 hashGenesisBlockOfficial("0xaf4ac34e7ef10a08fe2ba692eb9a9c08cf7e89fcf352f9ea6f0fd73ba3e5d03c");
-static const uint256 hashGenesisBlockTestNet ("0xaf4ac34e7ef10a08fe2ba692eb9a9c08cf7e89fcf352f9ea6f0fd73ba3e5d03c");
+static const uint256 hashGenesisBlockOfficial("0x000001fce0d9a857c779be31f3a20cf53ceadc3ef87d75798540f242fafb6e56");
+static const uint256 hashGenesisBlockTestNet ("0x000001fce0d9a857c779be31f3a20cf53ceadc3ef87d75798540f242fafb6e56");
 
 static const int64 nMaxClockDrift = 2 * 60 * 60;        // two hours
 
@@ -541,7 +539,6 @@ public:
         return (IsCoinBase() || IsCoinStake());
     }
 
-
     /** Check for standard transaction types
         @return True if all outputs (scriptPubKeys) use only standard transaction forms
     */
@@ -597,10 +594,10 @@ public:
     {
         // Large (in bytes) low-priority (new, small-coin) transactions
         // need a fee.
-        return dPriority > COIN * 2880 / 250;
+        return dPriority > COIN * 1440 / 250;
     }
 
-    int64 GetMinFee(unsigned int nBlockSize=1, bool fAllowFree=false, enum GetMinFee_mode mode=GMF_BLOCK, unsigned int nBytes = 0) const;
+    int64 GetMinFee(unsigned int nBlockSize=1, bool fAllowFree=false, enum GetMinFee_mode mode=GMF_BLOCK, unsigned int nBytes=0) const;
 
     bool ReadFromDisk(CDiskTxPos pos, FILE** pfileRet=NULL)
     {
@@ -1355,7 +1352,7 @@ class CDiskBlockIndex : public CBlockIndex
 {
 private:
 	uint256 blockHash;
-	
+
 public:
     uint256 hashPrev;
     uint256 hashNext;
@@ -1421,7 +1418,7 @@ public:
         block.nTime           = nTime;
         block.nBits           = nBits;
         block.nNonce          = nNonce;
-    
+		
 		const_cast<CDiskBlockIndex*>(this)->blockHash = block.GetHash();
 		
 		return blockHash;

@@ -276,7 +276,7 @@ class CBitcoinAddress : public CBase58Data
 public:
     enum
     {
-        PUBKEY_ADDRESS = 51,  // MintCoin: address begin with 'M'
+        PUBKEY_ADDRESS = 28,  // Colossuscoin2.0: address begin with 'C'
         SCRIPT_ADDRESS = 8, 
         PUBKEY_ADDRESS_TEST = 111,
         SCRIPT_ADDRESS_TEST = 196,

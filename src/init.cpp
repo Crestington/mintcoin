@@ -83,7 +83,7 @@ void Shutdown(void* parg)
         delete pwalletMain;
         NewThread(ExitTimeout, NULL);
         Sleep(50);
-        printf("MintCoin exited\n\n");
+        printf("Colossuscoin2.0 exited\n\n");
         fExit = true;
 #ifndef QT_GUI
         // ensure non-UI client gets exited here, but let Bitcoin-Qt reach 'return 0;' in bitcoin.cpp
@@ -138,12 +138,12 @@ bool AppInit(int argc, char* argv[])
         if (mapArgs.count("-?") || mapArgs.count("--help"))
         {
             // First part of help message is specific to bitcoind / RPC client
-            std::string strUsage = _("MintCoin version") + " " + FormatFullVersion() + "\n\n" +
+            std::string strUsage = _("Colossuscoin2.0 version") + " " + FormatFullVersion() + "\n\n" +
                 _("Usage:") + "\n" +
-                  "  MintCoind [options]                     " + "\n" +
-                  "  MintCoind [options] <command> [params]  " + _("Send command to -server or MintCoind") + "\n" +
-                  "  MintCoind [options] help                " + _("List commands") + "\n" +
-                  "  MintCoind [options] help <command>      " + _("Get help for a command") + "\n";
+                  "  Colossuscoin2.0d [options]                     " + "\n" +
+                  "  Colossuscoin2.0d [options] <command> [params]  " + _("Send command to -server or Colossuscoin2.0d") + "\n" +
+                  "  Colossuscoin2.0d [options] help                " + _("List commands") + "\n" +
+                  "  Colossuscoin2.0d [options] help <command>      " + _("Get help for a command") + "\n";
 
             strUsage += "\n" + HelpMessage();
 
@@ -153,7 +153,7 @@ bool AppInit(int argc, char* argv[])
 
         // Command-line RPC
         for (int i = 1; i < argc; i++)
-            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "MintCoin:"))
+            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "Colossuscoin2.0:"))
                 fCommandLine = true;
 
         if (fCommandLine)
@@ -193,13 +193,13 @@ int main(int argc, char* argv[])
 
 bool static InitError(const std::string &str)
 {
-    uiInterface.ThreadSafeMessageBox(str, _("MintCoin"), CClientUIInterface::OK | CClientUIInterface::MODAL);
+    uiInterface.ThreadSafeMessageBox(str, _("Colossuscoin2.0"), CClientUIInterface::OK | CClientUIInterface::MODAL);
     return false;
 }
 
 bool static InitWarning(const std::string &str)
 {
-    uiInterface.ThreadSafeMessageBox(str, _("MintCoin"), CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
+    uiInterface.ThreadSafeMessageBox(str, _("Colossuscoin2.0"), CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
     return true;
 }
 
@@ -221,8 +221,8 @@ std::string HelpMessage()
 {
     string strUsage = _("Options:") + "\n" +
         "  -?                     " + _("This help message") + "\n" +
-        "  -conf=<file>           " + _("Specify configuration file (default: MintCoin.conf)") + "\n" +
-        "  -pid=<file>            " + _("Specify pid file (default: MintCoind.pid)") + "\n" +
+        "  -conf=<file>           " + _("Specify configuration file (default: Colossuscoin2.0.conf)") + "\n" +
+        "  -pid=<file>            " + _("Specify pid file (default: Colossuscoin2.0d.pid)") + "\n" +
         "  -gen                   " + _("Generate coins") + "\n" +
         "  -gen=0                 " + _("Don't generate coins") + "\n" +
         "  -datadir=<dir>         " + _("Specify data directory") + "\n" +
@@ -233,7 +233,7 @@ std::string HelpMessage()
         "  -socks=<n>             " + _("Select the version of socks proxy to use (4-5, default: 5)") + "\n" +
         "  -tor=<ip:port>         " + _("Use proxy to reach tor hidden services (default: same as -proxy)") + "\n"
         "  -dns                   " + _("Allow DNS lookups for -addnode, -seednode and -connect") + "\n" +
-        "  -port=<port>           " + _("Listen for connections on <port> (default: 12788 or testnet: 22788)") + "\n" +
+        "  -port=<port>           " + _("Listen for connections on <port> (default: 11561 or testnet: 11562)") + "\n" +
         "  -maxconnections=<n>    " + _("Maintain at most <n> connections to peers (default: 125)") + "\n" +
         "  -addnode=<ip>          " + _("Add a node to connect to and attempt to keep the connection open") + "\n" +
         "  -connect=<ip>          " + _("Connect only to the specified node(s)") + "\n" +
@@ -276,7 +276,7 @@ std::string HelpMessage()
 #endif
         "  -rpcuser=<user>        " + _("Username for JSON-RPC connections") + "\n" +
         "  -rpcpassword=<pw>      " + _("Password for JSON-RPC connections") + "\n" +
-        "  -rpcport=<port>        " + _("Listen for JSON-RPC connections on <port> (default: 12789 or testnet: 22789)") + "\n" +
+        "  -rpcport=<port>        " + _("Listen for JSON-RPC connections on <port> (default: 11560 or testnet: 11562)") + "\n" +
         "  -rpcallowip=<ip>       " + _("Allow JSON-RPC connections from specified IP address") + "\n" +
         "  -rpcconnect=<ip>       " + _("Send commands to node running on <ip> (default: 127.0.0.1)") + "\n" +
         "  -blocknotify=<cmd>     " + _("Execute command when the best block changes (%s in cmd is replaced by block hash)") + "\n" +
@@ -455,7 +455,7 @@ bool AppInit2()
     if (file) fclose(file);
     static boost::interprocess::file_lock lock(pathLockFile.string().c_str());
     if (!lock.try_lock())
-        return InitError(strprintf(_("Cannot obtain a lock on data directory %s.  MintCoin is probably already running."), strDataDir.c_str()));
+        return InitError(strprintf(_("Cannot obtain a lock on data directory %s.  Colossuscoin2.0 is probably already running."), strDataDir.c_str()));
 
 #if !defined(WIN32) && !defined(QT_GUI)
     if (fDaemon)
@@ -482,7 +482,7 @@ bool AppInit2()
     if (GetBoolArg("-shrinkdebugfile", !fDebug))
         ShrinkDebugFile();
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-    printf("MintCoin version %s (%s)\n", FormatFullVersion().c_str(), CLIENT_DATE.c_str());
+    printf("Colossuscoin2.0 version %s (%s)\n", FormatFullVersion().c_str(), CLIENT_DATE.c_str());
     printf("Using OpenSSL version %s\n", SSLeay_version(SSLEAY_VERSION));
     if (!fLogTimestamps)
         printf("Startup time: %s\n", DateTimeStrFormat("%x %H:%M:%S", GetTime()).c_str());
@@ -491,7 +491,7 @@ bool AppInit2()
     std::ostringstream strErrors;
 
     if (fDaemon)
-        fprintf(stdout, "MintCoin server starting\n");
+        fprintf(stdout, "Colossuscoin2.0 server starting\n");
 
     int64 nStart;
 
@@ -523,7 +523,7 @@ bool AppInit2()
                                      " Original wallet.dat saved as wallet.{timestamp}.bak in %s; if"
                                      " your balance or transactions are incorrect you should"
                                      " restore from a backup."), strDataDir.c_str());
-            uiInterface.ThreadSafeMessageBox(msg, _("MintCoin"), CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
+            uiInterface.ThreadSafeMessageBox(msg, _("Colossuscoin2.0"), CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
         }
         if (r == CDBEnv::RECOVER_FAIL)
             return InitError(_("wallet.dat corrupt, salvage failed"));
@@ -733,13 +733,13 @@ bool AppInit2()
         {
             string msg(_("Warning: error reading wallet.dat! All keys read correctly, but transaction data"
                          " or address book entries might be missing or incorrect."));
-            uiInterface.ThreadSafeMessageBox(msg, _("MintCoin"), CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
+            uiInterface.ThreadSafeMessageBox(msg, _("Colossuscoin2.0"), CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
         }
         else if (nLoadWalletRet == DB_TOO_NEW)
-            strErrors << _("Error loading wallet.dat: Wallet requires newer version of MintCoin") << "\n";
+            strErrors << _("Error loading wallet.dat: Wallet requires newer version of Colossuscoin2.0") << "\n";
         else if (nLoadWalletRet == DB_NEED_REWRITE)
         {
-            strErrors << _("Wallet needed to be rewritten: restart MintCoin to complete") << "\n";
+            strErrors << _("Wallet needed to be rewritten: restart Colossuscoin2.0 to complete") << "\n";
             printf("%s", strErrors.str().c_str());
             return InitError(strErrors.str());
         }

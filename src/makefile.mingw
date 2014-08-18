@@ -2,25 +2,24 @@
 # Distributed under the MIT/X11 software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-USE_UPNP:=0
-USE_IPV6:=0
+USE_UPNP:=1
+USE_IPV6:=1
 
 INCLUDEPATHS= \
- -I"C:/deps/boost_1_53_0" \
- -I"C:/deps/db-4.8.30.NC/build_unix" \
- -I"C:/deps/openssl-1.0.1g/include"
+ -I"C:\deps\boost" \
+ -I"C:\deps\db\build_unix" \
+ -I"C:\deps\ssl\include
  
 LIBPATHS= \
- -L"C:/deps/boost_1_53_0/stage/lib" \
- -L"C:/deps/db-4.8.30.NC/build_unix" \
- -L"C:/deps/openssl-1.0.1g" 
-
+ -L"C:\deps\boost\stage/lib" \
+ -L"C:\deps\db\build_unix" \
+ -L"C:\deps\ssl" 
 
 LIBS= \
- -l boost_system-mgw48-mt-s-1_53 \
- -l boost_filesystem-mgw48-mt-s-1_53 \
- -l boost_program_options-mgw48-mt-s-1_53 \
- -l boost_thread-mgw48-mt-s-1_53 \
+ -l boost_system-mgw46-mt-1_53 \
+ -l boost_filesystem-mgw46-mt-1_53 \
+ -l boost_program_options-mgw46-mt-1_53 \
+ -l boost_thread-mgw46-mt-1_53 \
  -l db_cxx \
  -l ssl \
  -l crypto
@@ -36,8 +35,8 @@ ifndef USE_UPNP
 	override USE_UPNP = -
 endif
 ifneq (${USE_UPNP}, -)
- INCLUDEPATHS += -I"C:/deps/"
- LIBPATHS += -L"C:/deps/miniupnpc"
+ INCLUDEPATHS += -I"E:/"
+ LIBPATHS += -L"E:/miniupnpc"
  LIBS += -l miniupnpc -l iphlpapi
  DEFS += -DSTATICLIB -DUSE_UPNP=$(USE_UPNP)
 endif
@@ -85,10 +84,10 @@ OBJS= \
     obj/scrypt-x86.o \
     obj/scrypt-x86_64.o
 
-all: mintcoind.exe
+all: Colossuscoin2.0d.exe
 
-test check: test_mintcoin.exe FORCE
-	test_mintcoin.exe
+test check: test_Colossuscoin2.0.exe FORCE
+	test_Colossuscoin2.0.exe
 
 obj/%.o: %.cpp $(HEADERS)
 	g++ -c $(CFLAGS) -o $@ $<
@@ -99,7 +98,7 @@ obj/scrypt-x86.o: scrypt-x86.S
 obj/scrypt-x86_64.o: scrypt-x86_64.S
 	$(CXX) -c $(xCXXFLAGS) -MMD -o $@ $<
 
-mintcoind.exe: $(OBJS:obj/%=obj/%)
+Colossuscoin2.0d.exe: $(OBJS:obj/%=obj/%)
 	g++ $(CFLAGS) $(LDFLAGS) -o $@ $(LIBPATHS) $^ $(LIBS)
 
 TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
@@ -107,11 +106,11 @@ TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
 obj-test/%.o: test/%.cpp $(HEADERS)
 	g++ -c $(TESTDEFS) $(CFLAGS) -o $@ $<
 
-test_mintcoin.exe: $(TESTOBJS) $(filter-out obj/init.o,$(OBJS:obj/%=obj/%))
+test_Colossuscoin2.0.exe: $(TESTOBJS) $(filter-out obj/init.o,$(OBJS:obj/%=obj/%))
 	g++ $(CFLAGS) $(LDFLAGS) -o $@ $(LIBPATHS) $^ -lboost_unit_test_framework $(LIBS)
 
 clean:
-	-del /Q mintcoin test_mintcoin
+	-del /Q Colossuscoin2.0 test_Colossuscoin2.0
 	-del /Q obj\*
 	-del /Q obj-test\*
 
